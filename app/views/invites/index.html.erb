@@ -1,0 +1,8 @@
+<turbo-frame id="blogs_container" class="blogs_container">
+    <% @user.invitations.each do |i| %>
+        <turbo-frame id=<%= dom_id(i)%> class="blog">
+            <p>You are invited to <strong><%= i.title %></strong> by <%= i.user.username %> </p>
+            <%= link_to "Accept", accept_invite_path(i.id, current_user.id), data: {turbo_method: :post} %>
+        </turbo-frame>
+    <% end %>
+</turbo-frame>

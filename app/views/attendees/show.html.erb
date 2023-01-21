@@ -1,0 +1,34 @@
+<turbo-frame id=<%= dom_id(@event)%> class="blog">
+    <h2> <%= @event.title %> </h2>
+    <p>starts at: <%= @event.starts_at.strftime("%B %d %Y - %A, %l:%M %P") %> </p>
+    <p>venue: <%= @event.location %> </p>
+    <hr>
+    <p> creator: <strong> <%= @event.user.username %> </strong> </p>
+    <% if @event.attenders.any? %>
+        <% @event.attenders.each do |u| %>
+            <% if @event.user.id != u.id%>
+                <div class="user">
+                    <%= u.username%>
+                    <% if current_user.id == @event.user.id%>
+                        <%= link_to "Remove", delete_attendee_path(@event.id, u.id), data: {turbo_method: :delete} %>
+                    <% end %>
+                </div>
+            <% end %>
+        <% end %>
+    <% else %>
+        <h2>No Attenders</h2>
+    <% end %>
+    <hr>
+    <div class="options">
+        <%= link_to "Close", events_path%>
+        <%= link_to "Attenders", attendee_path(@event)%>
+        <% if current_user.id == @event.user.id %>
+            <%= link_to "Edit", edit_event_path(@event)%>
+            <%= link_to "Delete", event_path(@event), data: {turbo_method: :delete}%>
+            <%= link_to "Invite", new_event_invite_path(@event)%>
+        <% end %>
+        <% if @event.attenders.include?(current_user) %>
+            <%= link_to "Leave", attendee_path(@event.id), data: {turbo_method: :delete} %>
+        <% end %>
+    </div>
+</turbo-frame>

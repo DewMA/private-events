@@ -1,0 +1,15 @@
+<turbo-frame id=<%= dom_id(@user) %> class="blog">
+    <h2><%= @user.username %> - <%= @user.email %></h2>
+    <hr>
+    <h2> Joined Events: </h2>
+        <% @user.joined_events.each do |e| %>
+            <p> - <%= e.title  %> </p>
+        <% end %>
+    <hr>
+    <h2> Created Events: </h2>
+        <% @user.event.each do |e| %>
+            <p> - <%= e.title  %> </p>
+        <% end %>
+    <hr>
+    <%= link_to "Close", users_path %>
+</turbo-frame>

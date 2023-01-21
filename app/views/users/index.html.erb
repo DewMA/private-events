@@ -1,0 +1,9 @@
+<turbo-frame id="blogs_container" class="blogs_container">
+    <% @users.each do |u| %>
+        <turbo-frame id=<%= dom_id(u) %> class="blog">
+            <h2><%= u.username %> - <%= u.email %> </h2>
+            <br>
+            <%= link_to "View User Events", user_path(u)%>
+        </turbo-frame>
+    <% end %>
+</turbo-frame>

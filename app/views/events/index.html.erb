@@ -1,0 +1,7 @@
+<turbo-frame id="blogs_container" class="blogs_container">
+    <% @events.each do |e|%>
+        <% if user_signed_in? && (current_user.joined_events.include?(e) || e.user.id == current_user.id) %>
+            <%= render "shared/event", event: e%>
+        <% end %>
+    <% end %>
+</turbo-frame>

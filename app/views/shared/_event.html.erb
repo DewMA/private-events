@@ -1,0 +1,10 @@
+<turbo-frame id=<%= dom_id(event)%> class="blog">
+    <h2> <%= event.title %> </h2>
+    <p>starts at: <%= event.starts_at.strftime("%B %d %Y - %A, %l:%M %P") %> </p>
+    <p>venue: <%= event.location %> </p>
+    <hr>
+    <p> <%= truncate(event.body, length: 250) %> </p>
+    <div class="options">
+        <%= link_to "View", event_path(event)%>
+    </div>
+</turbo-frame>

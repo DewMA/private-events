@@ -1,0 +1,30 @@
+<turbo-frame id=<%= dom_id(@event)%> class="blog">
+
+
+    <div class="form">
+        <%= form_with(model: @event, local: true) do |f|%>
+            <%= f.label :title %>
+            <%= f.text_field :title %>
+            <%= f.label "description" %>
+            <%= f.text_area :body %>
+            <%= f.label :location %>
+            <%= f.text_field :location %>
+            <%= f.label :starts_at %>
+            <%= f.datetime_field :starts_at %>
+            <%= f.submit nil, class: "form-btn"%>
+        <% end %>
+    </div>
+    <hr>
+    <div class="options">
+        <%= link_to "Close", events_path%>
+        <%= link_to "Attenders", attendee_path(@event)%>
+        <% if current_user.id == @event.user.id %>
+            <%= link_to "Edit", edit_event_path(@event)%>
+            <%= link_to "Delete", event_path(@event), data: {turbo_method: :delete}%>
+            <%= link_to "Invite", new_event_invite_path(@event)%>
+        <% end %>
+        <% if @event.attenders.include?(current_user) %>
+            <%= link_to "Leave", delete_attendee_path(@event.id, current_user.id), data: {turbo_method: :delete} %>
+        <% end %>
+    </div>
+</turbo-frame>

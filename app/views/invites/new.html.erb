@@ -1,0 +1,18 @@
+<turbo-frame id=<%= dom_id(@event) %> class="blog">
+    <% @users.each do |u|%>
+        <% if @event.user.id != u.id%>
+            <div class="user">
+                <%= u.username%>
+                <% if invited(@event, u) %>
+                    <%= link_to "Delete Invite", delete_invite_path(@event, u.id), data: {turbo_method: :delete}%>
+                <% elsif @event.attenders.include?(u)%>
+                    <p>joined</p>
+                <% else %>
+                    <%= link_to "Invite", invite_user_path(@event, u.id), data: {turbo_method: :post}%>
+                <% end %>
+            </div>
+        <% end %>
+    <% end %>
+
+    <%= link_to "Close", events_path%>
+</turbo-frame>
